@@ -13,23 +13,8 @@ function JobList() {
     const searchState = useAppSelector((state) => state.search);
     const jobsState = useAppSelector((state) => state.jobs);
     const { searchTerm, searchField } = searchState;
-
     const { jobs, loading, error, filter, currentPage, jobsPerPage } = jobsState;
-
     const [updateCount, setUpdateCount] = useState(0);
-
-    // Отладочная информация
-    console.log('🔍 JobList DEBUG:', {
-        // Search slice
-        searchTerm,
-        searchField,
-        // Jobs slice
-        jobsCount: jobs.length,
-        loading,
-        error,
-        currentPage,
-        jobsPerPage
-    });
 
     // Загружаем данные при монтировании
     useEffect(() => {
@@ -54,17 +39,10 @@ function JobList() {
         }
 
         const searchLower = searchTerm.toLowerCase().trim();
-        console.log('🔍 Filtering jobs with term:', searchLower);
 
         const result = jobs.filter(job => {
             const matchesTitle = job.title.toLowerCase().includes(searchLower);
             const matchesCategory = job.category.label.toLowerCase().includes(searchLower);
-
-            console.log(`🔍 Job "${job.title}":`, {
-                matchesTitle,
-                matchesCategory,
-                category: job.category.label
-            });
 
             switch (searchField) {
                 case 'title':
@@ -76,8 +54,6 @@ function JobList() {
                     return matchesTitle || matchesCategory;
             }
         });
-
-        console.log('🔍 Filtered jobs result:', result.length, 'jobs found');
         return result;
     }, [jobs, searchTerm, searchField]);
 
@@ -89,7 +65,6 @@ function JobList() {
     const currentJobs = displayJobs.slice(indexOfFirstJob, indexOfLastJob);
 
     const handlePageChange = (page: number) => {
-        console.log('📄 Page change to:', page);
         dispatch(setCurrentPage(page));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -101,7 +76,6 @@ function JobList() {
 
     // Принудительная перезагрузка
     const handleForceReload = () => {
-        console.log('🔄 Manually reloading jobs...');
         dispatch(fetchJobs());
     };
 
@@ -136,43 +110,6 @@ function JobList() {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <div className="max-w-6xl mx-auto">
-
-                {/* Debug информация */}
-                {/* <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <h3 className="font-bold text-blue-800 mb-2">Debug Information</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                        <div>
-                            <span className="font-semibold">Render Count:</span> {updateCount}
-                        </div>
-                        <div>
-                            <span className="font-semibold">Total Jobs:</span> {jobs.length}
-                        </div>
-                        <div>
-                            <span className="font-semibold">Display Jobs:</span> {displayJobs.length}
-                        </div>
-                        <div>
-                            <span className="font-semibold">Current Page:</span> {currentPage}
-                        </div>
-                        <div>
-                            <span className="font-semibold">Search Term:</span> {searchTerm}
-                        </div>
-                        <div>
-                            <span className="font-semibold">Search Field:</span> {searchField}
-                        </div>
-                        <div>
-                            <span className="font-semibold">Filtered Jobs:</span> {filteredJobs.length}
-                        </div>
-                        <div>
-                            <button
-                                onClick={handleForceReload}
-                                className="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-600"
-                            >
-                                Reload Data
-                            </button>
-                        </div>
-                    </div>
-                </div> */}
-
                 {/* Search Bar */}
                 <div className="relative mb-8">
                     <SearchBar
@@ -254,23 +191,6 @@ function JobList() {
                     </div>
                 )}
 
-                {/* Raw Data Preview (для отладки) */}
-                {/* {process.env.NODE_ENV === 'development' && jobs.length > 0 && (
-                    <details className="mt-12 bg-yellow-50 p-4 rounded-lg">
-                        <summary className="cursor-pointer font-semibold text-yellow-800">
-                            Raw Jobs Data (Development Only)
-                        </summary>
-                        <pre className="mt-2 text-xs overflow-auto max-h-60 bg-white p-4 rounded border">
-                            {JSON.stringify(jobs.slice(0, 3).map(job => ({
-                                id: job.id,
-                                title: job.title,
-                                company: job.company.display_name,
-                                category: job.category.label,
-                                salary: `£${job.salary_min} - £${job.salary_max}`
-                            })), null, 2)}
-                        </pre>
-                    </details>
-                )} */}
             </div>
         </div>
     );

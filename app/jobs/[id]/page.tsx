@@ -9,10 +9,6 @@ export default function JobDetailPage() {
 
     // const dispatch = useAppDispatch();
     const jobId = params.id as string;
-    console.log(params, 'params JobDetailPage')
-    console.log(jobId, 'jobId JobDetailPage')
-    console.log(router, 'router JobDetailPage')
-
 
     // Находим вакансию по ID
 
@@ -20,7 +16,6 @@ export default function JobDetailPage() {
     const job = useAppSelector((state) =>
         state.jobs.jobs.find(j => j.id === jobId)
     )
-    console.log(job, 'job JobDetailPage')
 
 
     if (!job) {

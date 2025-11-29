@@ -39,9 +39,6 @@ const JobCard = ({ jobId }: JobCardProps) => {
 
     const handleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        console.log('🎯 CLICK: Favorite button clicked for job:', job.id);
-        console.log('📊 BEFORE - job.isFavorite:', job.isFavorite);
-        console.log('🔄 Dispatching toggleFavorite...');
 
         dispatch(toggleFavorite(job.id));
 

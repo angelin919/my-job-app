@@ -60,15 +60,6 @@ export const fetchJobs = createAsyncThunk(
                 limit: state.jobs.jobsPerPage
             });
             
-            console.log('✅ fetchJobs resolved with:', {
-                jobsCount: response.jobs.length,
-                totalCount: response.totalCount,
-                firstJob: response.jobs[0] ? {
-                    id: response.jobs[0].id,
-                    title: response.jobs[0].title,
-                    company: response.jobs[0].company.display_name
-                } : null
-            });
 
             return {
                 jobs: response.jobs,

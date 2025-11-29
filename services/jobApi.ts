@@ -76,12 +76,6 @@ export class JobService {
         page: params.page || 1,
         limit: params.limit || 20
       });
-        console.log('✅ Rise API Response:', {
-        success: response.success,
-        jobsCount: response.result.jobs.length,
-        totalCount: response.result.count,
-        jobs: response.result.jobs
-      });
 
       const jobs = response.result.jobs.map(transformRiseJobToJob);
       
