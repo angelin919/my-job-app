@@ -20,7 +20,7 @@ const Pagination = ({
     const showPages = 5; // Сколько страниц показывать
     
     let startPage = Math.max(1, currentPage - Math.floor(showPages / 2));
-    let endPage = Math.min(totalPages, startPage + showPages - 1);
+    const endPage = Math.min(totalPages, startPage + showPages - 1);
     
     // Корректируем начальную страницу, если мы в конце
     if (endPage - startPage + 1 < showPages) {

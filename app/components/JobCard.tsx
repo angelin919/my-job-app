@@ -1,11 +1,10 @@
 'use client'
-import { mockJobsList } from '@/data/data';
 import { Job } from '@/data/types/job';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { HeartIcon, BookmarkIcon, TrashIcon, MapPinIcon, BuildingOfficeIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { deleteJob, toggleFavorite } from '@/features/jobSlice';
+import { deleteJob, toggleApplied, toggleFavorite } from '@/features/jobSlice';
 
 // interface JobCardProps {
 //     job: Job;
@@ -54,7 +53,7 @@ const JobCard = ({ jobId }: JobCardProps) => {
 
     const handleApplied = (e: React.MouseEvent) => {
         e.stopPropagation();
-        //   dispatch(toggleApplied(job.id));
+          dispatch(toggleApplied(job.id));
     };
 
     const handleDelete = (e: React.MouseEvent) => {
@@ -92,7 +91,7 @@ const JobCard = ({ jobId }: JobCardProps) => {
                     </div>
                     <div className="flex space-x-1 ml-2">
                         <button
-                            onClick={handleFavorite}
+                            onClick={handleApplied}
                             className="action-button p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
                             title={job.isFavorite ? "Remove from favorites" : "Add to favorites"}
                         >

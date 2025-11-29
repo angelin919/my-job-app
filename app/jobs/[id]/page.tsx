@@ -1,16 +1,13 @@
 'use client';
 import { useParams, useRouter } from 'next/navigation';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useAppSelector } from '../../hooks/hooks';
 import { ArrowLeftIcon, MapPinIcon, BuildingOfficeIcon, ClockIcon, CurrencyPoundIcon } from '@heroicons/react/24/outline';
-import { useEffect } from 'react';
-import { fetchJobs } from '@/features/jobSlice';
-import { mockJobsList } from '@/data/data';
 
 export default function JobDetailPage() {
     const params = useParams();
     const router = useRouter();
 
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const jobId = params.id as string;
     console.log(params, 'params JobDetailPage')
     console.log(jobId, 'jobId JobDetailPage')
@@ -18,7 +15,11 @@ export default function JobDetailPage() {
 
 
     // Находим вакансию по ID
-    const job = mockJobsList.find(j => j.id == jobId);
+
+    // Получаем вакансию из Redux store
+    const job = useAppSelector((state) =>
+        state.jobs.jobs.find(j => j.id === jobId)
+    )
     console.log(job, 'job JobDetailPage')
 
 
@@ -27,7 +28,7 @@ export default function JobDetailPage() {
             <div className="container mx-auto px-4 py-8">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold text-gray-800 mb-4">Job Not Found</h1>
-                    <p className="text-gray-600 mb-6">The job you're looking for doesn't exist.</p>
+                    <p className="text-gray-600 mb-6">The job you are looking for does not exist.</p>
                     <button
                         onClick={() => router.push('/')}
                         className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -108,7 +109,7 @@ export default function JobDetailPage() {
                                             <li>3+ years of experience in relevant field</li>
                                             <li>Strong problem-solving skills</li>
                                             <li>Excellent communication skills</li>
-                                            <li>Bachelor's degree in Computer Science or related</li>
+                                            <li>Bachelors degree in Computer Science or related</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -178,7 +179,5 @@ export default function JobDetailPage() {
         </div>
     );
 }
-function dispatch(arg0: any) {
-    throw new Error('Function not implemented.');
-}
+
 
