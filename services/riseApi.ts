@@ -1,6 +1,6 @@
 import { RiseJobsResponse } from "@/data/types/search";
 
-const RISE_BASE_URL = 'https://api.joinrise.io/api/v1';
+const BASE_URL = '/api/rise';
 
 export interface RiseJobSearchParams {
   page?: number;
@@ -38,7 +38,7 @@ export class RiseService {
       }
     });
 
-    const url = `${RISE_BASE_URL}${endpoint}?${urlParams.toString()}`;
+    const url = `${BASE_URL}${endpoint}?${urlParams.toString()}`;
     
     console.log('🔄 Making request to Rise API:', url);
     
