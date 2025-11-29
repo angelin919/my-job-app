@@ -1,6 +1,6 @@
 import Link from "next/link";
-import JobList from "./components/JobList";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import JobList from "./components/JobList";
 
 
 export default function Home() {
